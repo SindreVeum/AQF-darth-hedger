@@ -1,0 +1,20 @@
+[project]
+name = "aqf-darth-hedger"
+version = "0.1.0"
+description = "Replication of McGhee (2018): ANN representation of SABR (UZH Applied Quant Finance)"
+requires-python = ">=3.11"
+dependencies = [
+    "numpy",
+    "scipy",
+    "torch>=2.14.1",
+]
+
+[dependency-groups]
+dev = ["pytest"]
+
+[tool.setuptools]
+packages = ["src"]
+
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
