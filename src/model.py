@@ -7,21 +7,33 @@ from scipy.interpolate import CubicSpline
 from torch import nn
 
 
+def log_features(x: torch.Tensor) -> torch.Tensor:
+    """(T, alpha, nu, rho, K1..K10) -> (sqrt T, alpha, nu_1M, rho, ln K1..ln K10), F = 1.
+
+    Spreads the inputs that min-max scaling otherwise squeezes near 0: nu reaches 22 at T = 1D and the top
+    strikes 20, so short-dated smiles used a few % of each column's range. nu_1M inverts eq. 43.
+    """
+    T = x[:, :1]
+    return torch.cat((T.sqrt(), x[:, 1:2], x[:, 2:3] * (12 * T).sqrt(), x[:, 3:4], x[:, 4:].log()), dim=1)
+
+
 class SABRNet(nn.Module):
-    def __init__(self, hidden: int = 1000, n_in: int = 14, n_out: int = 10):
+    def __init__(self, hidden: int = 1000, n_in: int = 14, n_out: int = 10, log_inputs: bool = False):
         super().__init__()
         self.net = nn.Sequential(nn.Linear(n_in, hidden), nn.Softplus(), nn.Linear(hidden, n_out), nn.Softplus())
-        # min-max input scaling, stored in the state dict; identity until set_input_range()
+        self.features = log_features if log_inputs else nn.Identity()
+        # min-max input scaling (of the features), stored in the state dict; identity until set_input_range()
         self.register_buffer("x_lo", torch.zeros(n_in))
         self.register_buffer("x_hi", torch.ones(n_in))
 
     def set_input_range(self, X: np.ndarray) -> None:
         """Scale inputs to [0, 1] using the min and max of X (the training set)."""
-        self.x_lo.copy_(torch.as_tensor(X.min(0), dtype=torch.float32))
-        self.x_hi.copy_(torch.as_tensor(X.max(0), dtype=torch.float32))
+        F = self.features(torch.as_tensor(X, dtype=torch.float32))
+        self.x_lo.copy_(F.min(0).values)
+        self.x_hi.copy_(F.max(0).values)
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
-        return self.net((x - self.x_lo) / (self.x_hi - self.x_lo))
+        return self.net((self.features(x) - self.x_lo) / (self.x_hi - self.x_lo))
 
     @torch.no_grad()
     def predict(self, X: np.ndarray) -> np.ndarray:
