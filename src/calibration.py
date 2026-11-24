@@ -13,7 +13,6 @@ from src.config import MODEL_DIR
 from src.hagan import hagan_iv, make_strikes
 from src.model import SABRNet
 
-
 BOUNDS = np.array([[0.05, 0.5], [0.05, 4.0], [-0.9, 0.9]])
 STARTS = np.array([[0.15, 0.5, -0.5], [0.25, 1.5, 0.0], [0.35, 2.5, 0.5]])
 

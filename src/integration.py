@@ -9,14 +9,14 @@ Labels are saved in resumable chunks, so an interrupted run continues where it s
 """
 
 import argparse
+import os
 from functools import lru_cache
 from multiprocessing import Pool
-import os
 from time import perf_counter
 
 import numpy as np
 from scipy.optimize import brentq
-from scipy.special import ndtr, log_ndtr, logsumexp, roots_legendre, roots_hermitenorm
+from scipy.special import log_ndtr, logsumexp, ndtr, roots_hermitenorm, roots_legendre
 
 from src.config import DATA_DIR, WINDOWS
 from src.hagan import generate as hagan_dataset

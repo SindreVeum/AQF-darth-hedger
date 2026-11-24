@@ -6,7 +6,7 @@ from multiprocessing import Pool
 import numpy as np
 import torch
 
-from src.config import DATA_DIR, MODEL_DIR, LOG_DIR, SIZES
+from src.config import DATA_DIR, LOG_DIR, MODEL_DIR, SIZES
 from src.model import MAX_EPOCHS, SABRNet, train
 
 

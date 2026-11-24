@@ -6,6 +6,7 @@ import sys
 from pathlib import Path
 
 import matplotlib
+
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import numpy as np
@@ -13,7 +14,7 @@ import pandas as pd
 import torch
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from src.config import MODEL_DIR, DATA_DIR, SIZES
+from src.config import DATA_DIR, MODEL_DIR, SIZES
 from src.model import SABRNet
 
 OUT = Path(__file__).resolve().parents[1] / "wiki" / "report" / "figures"
@@ -192,9 +193,11 @@ with (OUT / "tables.md").open("a") as f:
 ln_long.to_csv(TABLES / "integration_1y2y.csv")
 
 # Paper Figure 7: compare the ten learned nodes and the interpolated smile separately.
+from scipy.interpolate import CubicSpline
+
 from src import integration as I
 from src.hagan import hagan_iv, make_strikes
-from scipy.interpolate import CubicSpline
+
 T, alpha, nu, rho = 540 / 365, 0.30, 0.60, -0.35
 K = make_strikes(1., T, alpha, rho, nu)
 row = np.r_[T, alpha, nu, rho, K]
