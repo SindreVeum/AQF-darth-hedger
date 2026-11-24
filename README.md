@@ -4,7 +4,7 @@ Replication of McGhee (2018), *An ANN Representation of the SABR Stochastic Vola
 
 ## Layout
 
-- `src/` — pricing, dataset generation, ANN training and calibration.
+- `src/` — pricing, dataset generation, ANN training and calibration. Shared settings (data paths, maturity windows, ANN widths) are in `src/config.py`.
 - `AQF_S1_Hagan.ipynb` — Hagan dataset checks.
 - `AQF_S2_ANN_Hagan.ipynb` — ANN results and calibration demonstration; training cells can launch training.
 - `AQF_SABR_AllInOne.ipynb` — integration background and published-example checks.
@@ -13,17 +13,15 @@ Replication of McGhee (2018), *An ANN Representation of the SABR Stochastic Vola
 - `data/models/` — trained weights and resumable checkpoints.
 - `data/logs/` — per-model training logs and job output.
 - `data/chunks/` — resumable integration-generation chunks.
+- `wiki/` — project notes, report draft, research scripts and reference PDFs.
 
-All of `data/` is local and ignored by Git.
-- `wiki/` — [project findings](wiki/index.md), [report](wiki/report/ann-section.md), [LaTeX](wiki/report/ann-section.tex), and [supporting research](wiki/research/README.md).
-
-Research scripts, reference PDFs, historical audits and experiment outputs are consolidated in `wiki/research/`. Diagnostic CSVs and caches live in its ignored `results/` directory, including legacy CSV dataset exports. Report images remain in `wiki/report/figures/`.
+`data/` and `wiki/` are local and ignored by Git, so a fresh clone has neither the datasets and checkpoints nor the report figures.
 
 ## Setup and checks
 
 ```sh
 uv sync
-uv run python -m pytest -q
+uvx ruff check src figures *.ipynb               # lint
 uv run python figures/report_figures.py
 ```
 
