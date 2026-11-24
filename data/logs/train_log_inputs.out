@@ -1,0 +1,5 @@
+training [250, 500, 750, 1000], skipping [] (already finished)
+N=250: done at epoch 20000, final loss 5.441e-08
+N=500: done at epoch 19817, final loss 4.388e-08
+N=750: done at epoch 20000, final loss 4.741e-08
+N=1000: done at epoch 15265, final loss 5.744e-08

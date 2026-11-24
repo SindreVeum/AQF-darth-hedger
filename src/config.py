@@ -2,9 +2,11 @@
 
 from pathlib import Path
 
-DATA_DIR = Path(__file__).resolve().parent.parent / "data" / "datasets"
-MODEL_DIR = DATA_DIR.parent / "models"
-LOG_DIR = DATA_DIR.parent / "logs"
+ROOT = Path(__file__).resolve().parent.parent
+DATA_DIR = ROOT / "data" / "datasets"
+MODEL_DIR = ROOT / "data" / "models"
+LOG_DIR = ROOT / "data" / "logs"
+RESULTS_DIR = ROOT / "results"
 
 N_STRIKES = 10
 

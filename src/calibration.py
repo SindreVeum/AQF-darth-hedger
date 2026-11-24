@@ -9,7 +9,7 @@ from scipy.interpolate import CubicSpline
 from scipy.optimize import minimize
 
 from src import integration as I
-from src.config import MODEL_DIR
+from src.config import MODEL_DIR, RESULTS_DIR
 from src.hagan import hagan_iv, make_strikes
 from src.model import SABRNet
 
@@ -169,7 +169,7 @@ def synthetic_quotes(seed=2026, noise_bp=1.0):
     return cases
 
 
-def benchmark(repeats=3, output=Path("wiki/research/results/calibration.csv")):
+def benchmark(repeats=3, output=RESULTS_DIR / "calibration.csv"):
     """Fit six noisy smiles; write median wall time across repeated fits per case/method."""
     torch.set_num_threads(1)
     net = load_ann()
