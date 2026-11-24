@@ -1,14 +1,9 @@
-"""Hagan (2002) SABR implied vol and the McGhee (2018) training-set generator.
-
-Run `uv run python -m src.hagan` to regenerate data/hagan_1d_1y.npz and the CSVs.
-"""
-
-from pathlib import Path
+"""Hagan (2002) SABR implied vol and the McGhee (2018) training-set generator."""
 
 import numpy as np
 
-DATA_DIR = Path(__file__).resolve().parent.parent / "data"
-N_STRIKES = 10
+from src.config import DATA_DIR, N_STRIKES, WINDOWS
+
 COLUMNS_X = ["T", "alpha", "nu", "rho"] + [f"K{i}" for i in range(1, N_STRIKES + 1)]
 COLUMNS_Y = [f"iv{i}" for i in range(1, N_STRIKES + 1)]
 
@@ -92,22 +87,8 @@ def generate(t_min=1 / 365, t_max=1.0, seeds=(42, 43, 44)):
     }
 
 
-def to_csv(data, out_dir=DATA_DIR):
-    out_dir.mkdir(exist_ok=True)
-    header = ",".join(COLUMNS_X + COLUMNS_Y)
-    for split in ("train", "test"):
-        table = np.hstack((data[f"X_{split}"], data[f"y_{split}"]))
-        np.savetxt(out_dir / f"hagan_1d_1y_{split}.csv", table, delimiter=",", header=header, comments="", fmt="%.17g")
-
-
-def load_csv(split, data_dir=DATA_DIR):
-    table = np.loadtxt(data_dir / f"hagan_1d_1y_{split}.csv", delimiter=",", skiprows=1)
-    return table[:, : len(COLUMNS_X)], table[:, len(COLUMNS_X) :]
-
-
 if __name__ == "__main__":
     print(f"Max error vs. paper Table 6: {check_against_paper():.2f} bp")
-    data = generate()
-    DATA_DIR.mkdir(exist_ok=True)
-    np.savez_compressed(DATA_DIR / "hagan_1d_1y.npz", **data)
-    to_csv(data)
+    DATA_DIR.mkdir(parents=True, exist_ok=True)
+    for window, (t_min, t_max, seeds) in WINDOWS.items():
+        np.savez_compressed(DATA_DIR / f"hagan_{window}.npz", **generate(t_min, t_max, seeds))
