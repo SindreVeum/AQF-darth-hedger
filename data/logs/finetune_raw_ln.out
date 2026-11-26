@@ -1,0 +1,8 @@
+training [250, 500, 750, 1000], skipping [] (already finished)
+training [500, 750, 1000], skipping [250] (already finished)
+/Users/sindreveum/.local/share/uv/python/cpython-3.14.7-macos-aarch64-none/lib/python3.14/multiprocessing/resource_tracker.py:475: UserWarning: resource_tracker: There appear to be 6 leaked semaphore objects to clean up at shutdown: {'/mp-4wel9f02', '/mp-byfplupp', '/mp-7ds7_0lb', '/mp-f4jkjuhv', '/mp-48c560jf', '/mp-es6wjlv3'}
+  warnings.warn(
+training [500, 750, 1000], skipping [250] (already finished)
+N=500: done at epoch 6089, final loss 3.003e-07
+N=750: done at epoch 5618, final loss 3.170e-07
+N=1000: done at epoch 6229, final loss 3.020e-07

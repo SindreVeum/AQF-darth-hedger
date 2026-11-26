@@ -1,6 +1,6 @@
-"""Figures and tables for wiki/report/ann-section.md.
+"""Figures and tables for the report.
 
-uv run python figures/report_figures.py   ->  wiki/report/figures/*.png, *.md
+uv run python figures/report_figures.py   ->  figures/*.png, figures/tables.md, results/*.csv
 """
 import sys
 from pathlib import Path
@@ -14,13 +14,12 @@ import pandas as pd
 import torch
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from src.config import DATA_DIR, MODEL_DIR, SIZES
+from src.config import DATA_DIR, MODEL_DIR, RESULTS_DIR, SIZES
 from src.model import SABRNet
 
-OUT = Path(__file__).resolve().parents[1] / "wiki" / "report" / "figures"
-OUT.mkdir(parents=True, exist_ok=True)
-TABLES = OUT.parents[1] / "research" / "results" / "report"
-TABLES.mkdir(parents=True, exist_ok=True)
+OUT = Path(__file__).resolve().parent
+TABLES = RESULTS_DIR
+TABLES.mkdir(exist_ok=True)
 plt.rcParams.update({"figure.dpi": 150, "font.size": 9})
 torch.set_num_threads(2)
 
@@ -172,7 +171,7 @@ fig.savefig(OUT / "error_by_parameter_linear.png")
 plt.close(fig)
 
 print((OUT / "tables.md").read_text())
-print("saved:", *sorted(p.name for p in OUT.iterdir()))
+print("saved:", *sorted(p.name for p in OUT.glob("*.png")))
 
 # 5. Completed second-window models: the same held-out evaluation as above.
 hagan_long, *_ = table("hagan_1y_2y.npz", "_1y2y")
