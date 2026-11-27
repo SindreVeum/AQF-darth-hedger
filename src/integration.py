@@ -171,6 +171,21 @@ def check_against_2011():
     return np.max(np.abs(invert_otm(prices, K, 1.) - reference)) * 1e4
 
 
+def log10_mean_forward(T, alpha, rho, nu, n):
+    """log10 of the n-node quadrature value of E[F_c]/F under the approximating law (F = 1).
+    Proving divergence for rho>0 calls.
+    """
+    z, w = normal_rule(n)
+    s = alpha * np.exp(-nu**2 * T / 2 + nu * np.sqrt(T) * z)
+    m1 = conditional_mean_variance(alpha, nu, T, s)
+    m2 = conditional_second_moment(alpha, nu, T, s)
+    tau2 = np.log1p(np.maximum((m2 - m1**2) / m1**2, 0))
+    v = m1[:, None] * np.exp(np.sqrt(tau2)[:, None] * z - tau2[:, None] / 2)
+    log_f = rho / nu * (s[:, None] - alpha) - rho**2 * v * T / 2
+    log_w = np.log(w[:, None]) + np.log(w[None, :])
+    return logsumexp(log_f + log_w) / np.log(10)
+
+
 def atomic_save(path, **arrays):
     tmp = path.with_suffix('.tmp.npz')
     np.savez_compressed(tmp, **arrays)
