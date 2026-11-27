@@ -1,0 +1,82 @@
+{
+  "passed": true,
+  "scope": "Reporting orchestration replay only; no PDE, LN, ANN or training computation.",
+  "pde_solve_calls": 0,
+  "replay_grid_calls": 56,
+  "expected_grid_calls": 56,
+  "cases": 8,
+  "csv_rows": 81,
+  "accepted": 73,
+  "failed": 8,
+  "all_csv_fields_identical": true,
+  "status_and_iv_identical": true,
+  "failed_ivs_remain_nan": true,
+  "complete": true,
+  "progress_file_removed": true,
+  "comparison_json_identical": true,
+  "plot_generated": true,
+  "baseline_unchanged": true,
+  "final_details_unchanged": true,
+  "baseline_sha256": "985c1db18616086099aa68e9d1c72d0651cb4dff88e03f1016116cdc21da32f4",
+  "final_details_sha256": "ff26ecc3b6c63030ffc801a1677d8daec8c4827153d9d2e907ff2d15e608f02d",
+  "source_checks": {
+    "src/fdm.py": true,
+    "src/fdm_refinement.py": true,
+    "src/fdm_experiment.py": true,
+    "src/integration.py": true,
+    "src/hagan.py": true,
+    "src/model.py": true
+  },
+  "settings_roundoff_only": [
+    {
+      "case": "1d_1y_test_44913",
+      "run": "y_wide"
+    },
+    {
+      "case": "1y_2y_test_1100",
+      "run": "x_wide"
+    },
+    {
+      "case": "short_lowvol_negative",
+      "run": "x_wide"
+    },
+    {
+      "case": "short_lowvol_negative",
+      "run": "y_wide"
+    },
+    {
+      "case": "short_lowvol_positive",
+      "run": "x_wide"
+    },
+    {
+      "case": "short_lowvol_positive",
+      "run": "y_wide"
+    },
+    {
+      "case": "long_highvol_positive",
+      "run": "coarse"
+    },
+    {
+      "case": "long_highvol_positive",
+      "run": "base"
+    },
+    {
+      "case": "long_highvol_positive",
+      "run": "time_coarse"
+    },
+    {
+      "case": "long_highvol_positive",
+      "run": "time_fine"
+    },
+    {
+      "case": "long_highvol_positive",
+      "run": "y_wide"
+    },
+    {
+      "case": "long_highvol_positive",
+      "run": "fine"
+    }
+  ],
+  "script_sha256": "d2504545f7f599ab13ec99d6017daa5898146abb15775c8cbfcf1c013a07093a",
+  "output_is_temporary": true
+}

@@ -1,0 +1,346 @@
+{
+  "purpose": "Independent source audit and Figure 7 forward-coordinate unsplit PDE cross-check; direct call and put, no parity substitution.",
+  "source_audit": {
+    "identified_production_bug": false,
+    "PDE": "Ito transformation gives .5*sigma^2*(u_xx-u_x)+.5*nu^2*(u_yy-u_y)+rho*nu*sigma*u_xy. Cross coefficient has no extra half and has the correlation sign.",
+    "stencils": "Three-point nonuniform first/second derivatives match polynomial exactness; Kronecker reconstruction in this independent solver uses Vandermonde weights.",
+    "Craig_Sneyd": "Original theta=1/2 correction is Y0+.5*dt*A0*(Y2-Uold), with both correction sweeps subtracting Aj*Uold. Production matches this.",
+    "line_solves": "Flattened X solve has zero off-diagonals between successive Y lines; Y solve only updates X interiors.",
+    "boundaries": "X payoff endpoints and reflecting Y ghost values define a particular finite-domain PDE. Mixed derivative vanishes at reflecting Y edges. These choices are not recovered from paper author code.",
+    "payoff_and_interpolation": "Kink cell averages are exact for local symmetric center cells. Cubic spline evaluates x=log(F/K) after taking the y=0 grid row. Both are discretization choices, not the continuous SABR specification.",
+    "limits": "Passing tests and independent solver convergence do not prove exact continuum SABR values or identify the unpublished paper grid. Figure7 rho is negative; positive-rho martingale conventions are not at issue in this comparison."
+  },
+  "independent_method": "f=F/K, y=log(sigma/alpha); generator .5*sigma^2*f^2*u_ff+.5*nu^2*(u_yy-u_y)+rho*nu*sigma*f*u_fy. Sparse unsplit CN, two initial BE half steps; shared LU; direct call and put RHS.",
+  "test_evidence": {
+    "command": "python -X utf8 -m pytest tests/test_fdm.py -q",
+    "result": "31 passed in 14.78s",
+    "black_max_abs_iv_bp": {
+      "40": 1.2237107427887084,
+      "80": 0.30614979294352196,
+      "160": 0.07676614320828445
+    }
+  },
+  "runs": {
+    "coarse": {
+      "settings": {
+        "n_left": 80,
+        "ny": 100,
+        "nt": 400,
+        "f_max": 32.0,
+        "y_width": 4.5
+      },
+      "seconds": 9.576443600002676,
+      "f_points": 280,
+      "f_max": 32.487643374849625,
+      "comparison": {
+        "first_iv": 0.6443010591094286,
+        "first_minus_current_iv_bp": 5.468041137421942,
+        "first_minus_paper_iv_bp": 37.26044955951524,
+        "max_abs_minus_current_iv_bp": 13.478519856832683,
+        "mae_minus_current_iv_bp": 5.937804259623159
+      }
+    },
+    "coarse_domain": {
+      "settings": {
+        "n_left": 80,
+        "ny": 100,
+        "nt": 400,
+        "f_max": 64.0,
+        "y_width": 4.5
+      },
+      "seconds": 8.612679800018668,
+      "f_points": 304,
+      "f_max": 64.01257217351738,
+      "comparison": {
+        "first_iv": 0.6443493781408328,
+        "first_minus_current_iv_bp": 5.951231451464256,
+        "first_minus_paper_iv_bp": 37.743639873557555,
+        "max_abs_minus_current_iv_bp": 13.47780423900824,
+        "mae_minus_current_iv_bp": 5.947655071685842
+      }
+    },
+    "coarse_domain128": {
+      "settings": {
+        "n_left": 80,
+        "ny": 100,
+        "nt": 400,
+        "f_max": 128.0,
+        "y_width": 4.5
+      },
+      "seconds": 6.686878300039098,
+      "f_points": 329,
+      "f_max": 130.79719208196315,
+      "comparison": {
+        "first_iv": 0.6443533794383183,
+        "first_minus_current_iv_bp": 5.99124442631882,
+        "first_minus_paper_iv_bp": 37.78365284841212,
+        "max_abs_minus_current_iv_bp": 13.477679945780864,
+        "mae_minus_current_iv_bp": 5.948455002116669
+      }
+    },
+    "fine": {
+      "settings": {
+        "n_left": 160,
+        "ny": 200,
+        "nt": 400,
+        "f_max": 32.0,
+        "y_width": 4.5
+      },
+      "seconds": 36.935207299888134,
+      "f_points": 558,
+      "f_max": 32.03582429330136,
+      "comparison": {
+        "first_iv": 0.6438411347448056,
+        "first_minus_current_iv_bp": 0.8687974911925078,
+        "first_minus_paper_iv_bp": 32.661205913285805,
+        "max_abs_minus_current_iv_bp": 3.1796991306565214,
+        "mae_minus_current_iv_bp": 1.4010042003943177
+      }
+    },
+    "fine_wide": {
+      "settings": {
+        "n_left": 160,
+        "ny": 200,
+        "nt": 400,
+        "f_max": 128.0,
+        "y_width": 4.5
+      },
+      "seconds": 39.94091199990362,
+      "f_points": 656,
+      "f_max": 128.93475588818296,
+      "comparison": {
+        "first_iv": 0.6438970096640991,
+        "first_minus_current_iv_bp": 1.4275466841273676,
+        "first_minus_paper_iv_bp": 33.21995510622067,
+        "max_abs_minus_current_iv_bp": 3.1788331917215196,
+        "mae_minus_current_iv_bp": 1.4123833589331114
+      }
+    },
+    "coarse_time": {
+      "settings": {
+        "n_left": 80,
+        "ny": 100,
+        "nt": 800,
+        "f_max": 128.0,
+        "y_width": 4.5,
+        "y_boundary": "reflecting"
+      },
+      "seconds": 16.738981399917975,
+      "f_points": 329,
+      "f_max": 130.79719208196315,
+      "comparison": {
+        "first_iv": 0.6443523928785149,
+        "first_minus_current_iv_bp": 5.981378828284756,
+        "first_minus_paper_iv_bp": 37.77378725037806,
+        "max_abs_minus_current_iv_bp": 13.48985553777493,
+        "mae_minus_current_iv_bp": 5.951862130842056
+      }
+    },
+    "coarse_frozen": {
+      "settings": {
+        "n_left": 80,
+        "ny": 100,
+        "nt": 400,
+        "f_max": 128.0,
+        "y_width": 4.5,
+        "y_boundary": "frozen"
+      },
+      "seconds": 8.253113100072369,
+      "f_points": 329,
+      "f_max": 130.79719208196315,
+      "comparison": {
+        "first_iv": 0.6443533794383156,
+        "first_minus_current_iv_bp": 5.991244426292175,
+        "first_minus_paper_iv_bp": 37.78365284838547,
+        "max_abs_minus_current_iv_bp": 13.477679945784748,
+        "mae_minus_current_iv_bp": 5.9484550021672975
+      }
+    },
+    "finest_wide": {
+      "settings": {
+        "n_left": 320,
+        "ny": 400,
+        "nt": 400,
+        "f_max": 128.0,
+        "y_width": 4.5
+      },
+      "seconds": 210.33104870002717,
+      "f_points": 1310,
+      "f_max": 128.01358327162325,
+      "comparison": {
+        "first_iv": 0.643781981298981,
+        "first_minus_current_iv_bp": 0.2772630329461734,
+        "first_minus_paper_iv_bp": 32.06967145503947,
+        "max_abs_minus_current_iv_bp": 0.6504703762988395,
+        "mae_minus_current_iv_bp": 0.2885838239805816
+      }
+    }
+  },
+  "controls": {
+    "forward_domain32_to64_coarse": {
+      "first_iv_bp": 0.4831903140423144,
+      "max_abs_iv_bp": 0.4831903140423144
+    },
+    "forward_domain64_to128_coarse": {
+      "first_iv_bp": 0.04001297485456412,
+      "max_abs_iv_bp": 0.04001297485456412
+    },
+    "time400_to800_coarse_wide": {
+      "first_iv_bp": -0.009865598034064504,
+      "max_abs_iv_bp": 0.012175591994068036
+    },
+    "Y_reflecting_to_frozen_coarse_wide": {
+      "first_iv_bp": -2.6645352591003757e-11,
+      "max_abs_iv_bp": 6.611378111642807e-10
+    },
+    "space_coarse_to_fine_wide": {
+      "first_iv_bp": -4.563697742191453,
+      "max_abs_iv_bp": 10.298846754059344
+    },
+    "space_fine_to_finest_wide": {
+      "first_iv_bp": -1.1502836511811942,
+      "max_abs_iv_bp": 2.52836281542268,
+      "first_refinement_ratio": 3.967454234010123
+    }
+  },
+  "richardson_diagnostic_only": {
+    "formula": "(4*iv_fine-iv_coarse)/3 on wide-domain nominal n_left80/160, ny100/200 grids; diagnostic IV extrapolation, not replacement training labels.",
+    "assumption": "Leading combined spatial error approximately quadratic. Forward-domain endpoints are grid-rounded and differ slightly; they are both >=128.",
+    "comparison": {
+      "first_iv": 0.6437448864060261,
+      "first_minus_current_iv_bp": -0.09368589660274651,
+      "first_minus_paper_iv_bp": 31.698722525490552,
+      "max_abs_minus_current_iv_bp": 0.25411572629807644,
+      "mae_minus_current_iv_bp": 0.10027000893610971
+    },
+    "iv": [
+      0.6437448864060261,
+      0.5474904897679888,
+      0.4860877684386318,
+      0.4406085346202437,
+      0.40461323257872,
+      0.37520886211905435,
+      0.35094542257863587,
+      0.33108633275065436,
+      0.31528465807155226,
+      0.3033559751718818,
+      0.295113320822393,
+      0.290231787646567,
+      0.28821190097800936,
+      0.28845594767873894,
+      0.2903758291903484,
+      0.2934690056684585,
+      0.2973463551247201,
+      0.3017231097191287,
+      0.3063979517170672,
+      0.3112312020823687,
+      0.3161273143753182,
+      0.32102377419357525,
+      0.32587661130725176,
+      0.3306575245799751,
+      0.3353491157649018,
+      0.33993801439544874,
+      0.3444191348308474,
+      0.3487888967162213,
+      0.35304720217712043,
+      0.3571952511368339,
+      0.3612326107199841,
+      0.36516389832479007,
+      0.36899356214579315,
+      0.37272116612741524,
+      0.37635463917289713,
+      0.3798933657504862,
+      0.3833422629305718,
+      0.38670555879728835,
+      0.3899872211264071,
+      0.3931895532012552,
+      0.3963156898234131,
+      0.3993685600360804,
+      0.4023507724649667,
+      0.405265745874195,
+      0.40811690276284923,
+      0.4109057753507385,
+      0.4136335987047078,
+      0.41630374142988474,
+      0.4189182008269166,
+      0.4214805015726087
+    ]
+  },
+  "first_strike": 0.11073585122748644,
+  "reproduction_commands": [
+    "python -X utf8 -m src.fdm_independent --name coarse_domain128 --n-left 80 --ny 100 --nt 400 --f-max 128",
+    "python -X utf8 -m src.fdm_independent --name fine_wide --n-left 160 --ny 200 --nt 400 --f-max 128",
+    "python -X utf8 -m src.fdm_independent --name coarse_time --n-left 80 --ny 100 --nt 800 --f-max 128",
+    "python -X utf8 -m src.fdm_independent --name coarse_frozen --n-left 80 --ny 100 --nt 400 --f-max 128 --y-boundary frozen",
+    "python -X utf8 -m src.fdm_independent --name finest_wide --n-left 320 --ny 400 --nt 400 --f-max 128"
+  ],
+  "hashes": {
+    "src\\fdm.py": "58eeb75f4e7f1e07307b203213c5e588ef1c635024a3797d74801247b5b92a18",
+    "src\\fdm_independent.py": "2db468fa092ab7fbbfd1c2981a319a62446a5d3c133fbe89fa9233a42a71b521",
+    "results\\fdm_paper_direct\\figure7.json": "bb4fab68c7ce2d6a8d3972fbf1404b787a6039e797b86f76b6470ee29f8f92ba"
+  },
+  "richardson_finest_diagnostic_only": {
+    "formula": "(4*iv_finest-iv_fine)/3; diagnostic only, not replacement labels.",
+    "comparison": {
+      "first_iv": 0.6437436385106082,
+      "first_minus_current_iv_bp": -0.10616485078163151,
+      "first_minus_paper_iv_bp": 31.686243571311667,
+      "max_abs_minus_current_iv_bp": 0.19231722884205382,
+      "mae_minus_current_iv_bp": 0.08658110637348448
+    },
+    "iv": [
+      0.6437436385106082,
+      0.5474904025191383,
+      0.4860878608148877,
+      0.4406086032475833,
+      0.4046132534375064,
+      0.3752088612553795,
+      0.3509454219394775,
+      0.33108633612690036,
+      0.315284662109125,
+      0.30335597864061475,
+      0.2951133240951291,
+      0.29023178919215703,
+      0.2882118914337453,
+      0.288455923833678,
+      0.2903758135070607,
+      0.29346902577206163,
+      0.2973464228031432,
+      0.3017232201597509,
+      0.30639808216210546,
+      0.3112313279588623,
+      0.31612739590590094,
+      0.3210238193250134,
+      0.3258765865736257,
+      0.3306574114453036,
+      0.33534890510918136,
+      0.33993769569759585,
+      0.34441868926941077,
+      0.3487882662508575,
+      0.35304647857184496,
+      0.35719437290981076,
+      0.36123152490056615,
+      0.36516269200257456,
+      0.36899211470651644,
+      0.37271956979838133,
+      0.3763528469043427,
+      0.37989125260217854,
+      0.38334004738270483,
+      0.38670305425122403,
+      0.38998437999933583,
+      0.39318659755239205,
+      0.3963124573073962,
+      0.39936485405937794,
+      0.4023468783285756,
+      0.405261653155286,
+      0.40811248365558345,
+      0.41090082776836834,
+      0.41362826343936515,
+      0.41629825594393915,
+      0.4189124108993421,
+      0.4214743217228631
+    ],
+    "first_extrapolation_change_iv_bp": -0.012478954178885004
+  },
+  "timing_note": "Observed solve wall times during concurrent diagnostics; not a controlled throughput benchmark."
+}

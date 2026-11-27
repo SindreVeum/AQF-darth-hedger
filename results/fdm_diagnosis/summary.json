@@ -1,0 +1,55 @@
+{
+  "scope": "Figure7, beta1, F1, negative rho, direct OTM; no production changes",
+  "parameters": {
+    "T": 1.4794520547945205,
+    "alpha": 0.3,
+    "nu": 0.6,
+    "rho": -0.35
+  },
+  "reference_strikes": 50,
+  "paper_discrepancy_iv_bp": {
+    "mae": 5.581524424639406,
+    "max": 31.7924084220933
+  },
+  "independent_qmc": {
+    "K": [
+      0.11073585122748644,
+      1.0724231937558344,
+      1.264747812228873,
+      1.9379358762931915
+    ],
+    "own_minus_qmc_iv_bp": [
+      0.35359965276260397,
+      -0.002448381860031823,
+      0.0012282080202874468,
+      -0.02009391720014797
+    ],
+    "paper_minus_qmc_iv_bp": [
+      -31.438808769330695,
+      11.726342102000299,
+      18.78167130963504,
+      9.361592741424229
+    ],
+    "limitations": [
+      "Student-t intervals estimate marginal randomization uncertainty from independent scrambles; they do not include time-discretization bias.",
+      "Nested time differences assess but do not rigorously bound trapezoidal variance bias.",
+      "Paper prices are Black prices implied by digitized Figure 7 IVs, not a published price table.",
+      "The 24-scramble follow-up was prompted by a sub-bp left-wing residual outside the first batch empirical interval; this is a diagnostic follow-up, not a pre-registered confidence statement.",
+      "Only four strikes are checked. Empirical randomization intervals are not deterministic error bounds or simultaneous confidence bands.",
+      "IV time-change SEs use the Black-vega delta method; nested time changes are observed numerical differences, not rigorous bias bounds."
+    ]
+  },
+  "independent_cn_finest": {
+    "first_iv": 0.643781981298981,
+    "first_minus_current_iv_bp": 0.2772630329461734,
+    "first_minus_paper_iv_bp": 32.06967145503947,
+    "max_abs_minus_current_iv_bp": 0.6504703762988395,
+    "mae_minus_current_iv_bp": 0.2885838239805816
+  },
+  "fixed_log_forward_test": {
+    "max_vs_current_iv_bp": 2.7243860414755128,
+    "max_vs_paper_iv_bp": 32.9237014948458
+  },
+  "conclusion": "Independent methods support current FDM levels. No audited production defect found. Tested numerical settings do not reproduce paper; author-side settings versus implementation error remain unidentified. Sub-bp wing residual remains.",
+  "report": "docs/fdm_diagnosis.md"
+}

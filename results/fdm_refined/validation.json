@@ -1,0 +1,20 @@
+{
+  "passed": true,
+  "cases": 8,
+  "labels": 81,
+  "accepted": 73,
+  "failed": 8,
+  "recovered": 18,
+  "regressed": 0,
+  "all_domain_checks_pass": true,
+  "source_and_model_hashes_match": true,
+  "baseline_unchanged": true,
+  "timing_calls": 32,
+  "max_coarse_timing_vs_validation_price_difference": 2.3447910280083306e-13,
+  "baseline_coarse_batch_mean_seconds": 15.752116949763149,
+  "refined_coarse_batch_mean_seconds": 47.16443239955697,
+  "tests": {
+    "passed": 32,
+    "last_verified_seconds": 8.91
+  }
+}

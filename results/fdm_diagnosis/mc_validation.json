@@ -1,0 +1,39 @@
+{
+  "brownian_covariance": {
+    "steps": 16,
+    "maturity": 1.7,
+    "method": "The linear bridge map applied to identity basis; B.T @ B equals min(s,t). This is deterministic and checks the complete covariance matrix.",
+    "max_absolute_error": 4.440892098500626e-16,
+    "atol": 1e-14,
+    "passed": true
+  },
+  "deterministic_black": {
+    "maturity": 1.7,
+    "sigma": 0.3,
+    "strikes": [
+      0.11,
+      0.8,
+      1.0,
+      1.3,
+      2.0
+    ],
+    "actual": [
+      1.7830868659626889e-10,
+      0.06127129753813284,
+      0.15505800976564865,
+      0.06622911228066863,
+      0.008347233769521591
+    ],
+    "expected": [
+      1.7830868659628013e-10,
+      0.06127129753813276,
+      0.15505800976564865,
+      0.06622911228066847,
+      0.008347233769521609
+    ],
+    "max_absolute_error": 1.6653345369377348e-16,
+    "rtol": 1e-12,
+    "atol": 2e-16,
+    "passed": true
+  }
+}

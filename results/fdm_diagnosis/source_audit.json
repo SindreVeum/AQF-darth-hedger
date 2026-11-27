@@ -1,0 +1,111 @@
+{
+  "scope": "Independent source/reference audit; no PDE solves or modifications to pricing/reference inputs.",
+  "spacing": {
+    "points": 50,
+    "K_min": 0.11073585122748644,
+    "K_max": 4.82296607178533,
+    "mean_delta_K": 0.09616796368485393,
+    "min_delta_K": 0.09614357807138685,
+    "max_delta_K": 0.09620428451080487,
+    "max_residual_linear_K_fit": 3.0505152487592113e-05,
+    "first_delta_log_K": 0.6251127565187313,
+    "last_delta_log_K": 0.020145040284528237,
+    "first_to_last_log_spacing_ratio": 31.030603448275528,
+    "interpretation": "Approximately equal K spacing becomes denser to the right on a log K axis; the existing figure already uses log scale."
+  },
+  "preprint_crosscheck": {
+    "source": "papers/mcghee-2018-sabr-ann.pdf",
+    "page": 20,
+    "image_size": [
+      1200,
+      796
+    ],
+    "image_axes": {
+      "x": {
+        "a": 516.0,
+        "b": 685.0,
+        "meaning": "pixel_x=a*log10(K)+b"
+      },
+      "y": {
+        "a": -1414.6666666666663,
+        "b": 1088.2222222222222,
+        "meaning": "pixel_y=a*decimal_IV+b"
+      }
+    },
+    "comparison": "Project journal vector FDM nodes into preprint raster chart and measure distance to red curve pixels (excluding legend).",
+    "median_nearest_pixel_distance": 0.4330612998496699,
+    "max_nearest_pixel_distance": 0.7767953517160869,
+    "first_nearest_pixel_distance": 0.1489131877910022,
+    "interpretation": "All 50 nodes land within 0.8 pixels of the earlier red curve; supports same plot within raster precision, not identity of unpublished numerical arrays."
+  },
+  "reference_checks": {
+    "hagan_365_max_iv_bp": 0.021901978947136413,
+    "hagan_360_max_iv_bp": 1.2044666624722034,
+    "own_LN_minus_paper_LN_max_iv_bp": 0.14439527417975384,
+    "paper_LN_minus_paper_FDM_max_iv_bp": 32.211629553390296,
+    "paper_FDM_vertical_coordinate_max_bound_iv_bp": 0.01593129437649221,
+    "local_K_sensitivity_proxy_max_iv_bp": 0.016582406761348003,
+    "combined_proxy_max_iv_bp": 0.03152106400701468,
+    "uncertainty_note": "Vertical bound concerns assumed PDF coordinate rounding only. K sensitivity proxy uses spline slope of own 50-point smile and is not a rigorous FDM or author-error bound."
+  },
+  "first_point": {
+    "K": 0.11073585122748644,
+    "own_fdm_iv": 0.6437542549956864,
+    "paper_fdm_iv": 0.6405750141534771,
+    "paper_LN_iv": 0.6437961771088161,
+    "own_fdm_put_price": 0.00017935691799292854,
+    "paper_iv_implied_put_price": 0.00017036841833025938,
+    "price_difference_bp": 0.08988499662669153,
+    "black_vega": 0.002881941675236307,
+    "iv_difference_bp": 31.7924084220933
+  },
+  "paper_disclosure": {
+    "journal_section_3_3_pages": [
+      10,
+      11
+    ],
+    "coordinate_system": "X=log(F),Y=log(sigma)",
+    "PDE_matches_current_shifted_coordinates": true,
+    "method": "Craig-Sneyd",
+    "table8_page": 24,
+    "reported_grid_counts": [
+      400,
+      200,
+      100
+    ],
+    "axis_assignment_reported": false,
+    "domain_reported": false,
+    "boundary_conditions_reported": false,
+    "grid_spacing_rule_reported": false,
+    "payoff_smoothing_reported": false,
+    "PDE_interpolation_rule_reported": false
+  },
+  "hypotheses_not_established_facts": [
+    "Fixed log-forward grids with strike-dependent payoff alignment can produce oscillatory strike errors, unlike a grid centered on log(F/K)=0 with averaged payoff. Paper notation does not prove this implementation choice.",
+    "Coarse price grids, payoff smoothing, interpolation or finite-domain settings may explain jaggedness. Their exact contribution cannot be established from the published plot alone."
+  ],
+  "display_recommendation": "Keep the original 50 strikes. Show linear-K and log-K companion views or use continuous curves with fewer marker symbols. Equal spacing in log K would require different (geometric) strike samples and should not replace the paper-point benchmark.",
+  "own_FDM_minus_paper_FDM_price_from_figure": {
+    "mae_price_bp": 1.1137192003418865,
+    "max_abs_price_bp": 8.074370969497341,
+    "K_at_max": 1.264747812228873,
+    "note": "Paper price is Black price reconstructed from digitized IV, not a separately published numerical price."
+  },
+  "discrete_call_convexity_check": {
+    "own_FDM": {
+      "min_adjacent_slope_increase": 1.8846478707955236e-05,
+      "negative_count": 0,
+      "indices_negative_1based": []
+    },
+    "paper_FDM": {
+      "min_adjacent_slope_increase": 1.0198723253662363e-07,
+      "negative_count": 0,
+      "indices_negative_1based": []
+    },
+    "paper_LN": {
+      "min_adjacent_slope_increase": 1.885582034488509e-05,
+      "negative_count": 0,
+      "indices_negative_1based": []
+    }
+  }
+}

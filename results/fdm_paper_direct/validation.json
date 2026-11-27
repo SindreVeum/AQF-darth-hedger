@@ -1,0 +1,73 @@
+{
+  "complete": true,
+  "points": 61,
+  "accepted": 61,
+  "tests_passed": 39,
+  "cases": {
+    "tables": {
+      "max_changes_iv_bp": {
+        "space": 0.3874531832692707,
+        "time": 0.005142961146675784,
+        "x_domain": 0.00021935947364104535,
+        "y_domain": 4.971023592759138e-10
+      },
+      "all_grid_settings_match_current_code": true,
+      "all_runs_direct": true,
+      "iv_price_roundtrip_max_abs": 1.700029006457271e-16,
+      "recorded_hash_matches_current": {
+        "fdm.py": true,
+        "fdm_paper.py": false,
+        "integration.py": true
+      }
+    },
+    "figure7": {
+      "max_changes_iv_bp": {
+        "space": 0.4739723401020468,
+        "time": 0.009687135467117969,
+        "x_domain": 0.0002068337667804343,
+        "y_domain": 2.4980018054066022e-11
+      },
+      "all_grid_settings_match_current_code": true,
+      "all_runs_direct": true,
+      "iv_price_roundtrip_max_abs": 3.3181790648484366e-14,
+      "recorded_hash_matches_current": {
+        "fdm.py": true,
+        "fdm_paper.py": false,
+        "integration.py": true
+      }
+    }
+  },
+  "scope": "Two published negative-rho cases only. No training or full-dataset generation.",
+  "published_table_prices_equal_previous_negative_rho_result": true,
+  "wrapper_hash_note": "Saved wrapper hashes predate the final Figure7 grid refinement and report formatting. Current grid settings match the saved runs; the solver and integrator hashes are unchanged. The final report now uses linear axes, a compact error CSV, and separately identified Figure7 IV-implied prices. No PDE was rerun for this reporting update.",
+  "reference_hagan_max_iv_bp": 0.021901978947136413,
+  "report_source_sha256": "0324ea9417a139939fa123fa41449ef7040e058edde4aad2dfb710dd743b8cd8",
+  "csv_points_and_metrics_verified": true,
+  "paper_ln_plot_update": {
+    "date": "2026-11-27",
+    "table_ln_source": "Printed Table 6 Integration column (conditional LN), PDF page 22.",
+    "figure7_ln_source": "50 digitized LN vertices from figure7_reference.json.",
+    "plotted_source_arrays_and_differences_verified": true,
+    "csv_paper_ln_columns_verified": true,
+    "all_previous_metrics_and_pricing_hashes_unchanged": true,
+    "report_tests_passed": 2,
+    "no_pde_rerun": true
+  },
+  "reporting_update": {
+    "csv_points": 61,
+    "aggregate_rows": 8,
+    "all_csv_metrics_recomputed": true,
+    "printed_and_inferred_price_columns_separate": true,
+    "all_previous_metrics_unchanged": true,
+    "solver_integrator_and_input_hashes_unchanged": true,
+    "linear_plot_visually_reviewed": true,
+    "tests_passed": 39,
+    "hashes": {
+      "src/fdm.py": "58eeb75f4e7f1e07307b203213c5e588ef1c635024a3797d74801247b5b92a18",
+      "src/integration.py": "10f134733d6505a0d725ccec9cf876a6b5defeaf192ee174a281a85472efc6cf",
+      "results/fdm_paper_direct/tables.json": "82eb8f258ead4c746cf140fcc379941ee359737f72b69d0ba6621940cfbe1cbc",
+      "results/fdm_paper_direct/figure7.json": "bb4fab68c7ce2d6a8d3972fbf1404b787a6039e797b86f76b6470ee29f8f92ba",
+      "results/fdm_paper_direct/figure7_reference.json": "51561532c019c04d83d10993ae3b3df9784741f669ff9edad5dbd39386028b60"
+    }
+  }
+}

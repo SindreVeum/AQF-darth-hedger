@@ -5,6 +5,8 @@ Replication of McGhee (2018), *An ANN Representation of the SABR Stochastic Vola
 ## Layout
 
 - `src/` — pricing, dataset generation, ANN training and calibration. Shared settings (data paths, maturity windows, ANN widths) are in `src/config.py`.
+- `src/fdm.py` — Craig–Sneyd SABR PDE prices, with direct call/put pricing by default; parity remains an explicit legacy option.
+- `src/fdm_experiment.py` — small FDM/LN/ANN comparison with separate space, time and domain checks.
 - `AQF_S1_Hagan.ipynb` — Hagan dataset checks.
 - `AQF_S2_ANN_Hagan.ipynb` — ANN results and calibration demonstration; training cells can launch training.
 - `AQF_SABR_AllInOne.ipynb` — integration background and published-example checks.
@@ -27,6 +29,57 @@ uv run python figures/report_figures.py
 ```
 
 Figure regeneration requires the existing datasets and checkpoints in `data/`. It writes images and `tables.md` to `figures/` and CSVs to `results/`.
+
+## Finite-difference validation
+
+With dependencies installed in the active Python, run from the repository root:
+
+```sh
+python -m pytest -q
+python -m src.fdm_paper --report-only
+```
+
+`src/fdm.py` implements the original Craig-Sneyd method with direct call/put
+pricing. The retained comparison uses the 11 printed Tables 6/7 strikes and
+50 digitized Figure 7 positions. Both cases have negative correlation.
+The report-only command rebuilds the final linear-axis figure and error tables
+from saved numerical solves; it does not train models or generate datasets.
+
+![Direct SABR FDM comparison with paper LN and FDM](results/fdm_paper_direct/comparison.png)
+
+To recompute both published cases and their grid/time/domain checks:
+
+```sh
+python -m src.fdm_paper
+```
+
+This writes `results/fdm_paper_direct/`. Use `--case tables` or `--case figure7`
+to recompute one case. All finest estimates and any failed checks remain visible.
+See [the direct comparison and reference limitations](docs/fdm_paper.md).
+The final plot uses linear strike axes. `error_summary.csv` contains the compact
+IV/price error tables; `comparison.csv` retains all 61 pointwise comparisons.
+Paper LN is included in both the IV curves and paper LN minus paper FDM panels.
+Figure 7 price references are explicitly identified as inferred from plotted IV.
+
+Independent checks are retained in `src/fdm_independent.py` (forward-coordinate
+Crank-Nicolson) and `src/fdm_mc_check.py` (conditional randomized QMC). Commands,
+results and the unresolved sub-bp wing residual are documented in
+[the discrepancy investigation](docs/fdm_diagnosis.md). One-off grid and payoff
+experiments are [archived](archive/fdm/README.md); the
+[code inventory](docs/fdm_review.md) explains the retained dependencies.
+
+Historical pilot commands remain available because their modules also provide
+shared convergence and domain-expansion helpers used by the final comparison:
+
+```sh
+python -m src.fdm_experiment
+python -m src.fdm_refinement
+```
+
+These repeat eight historical cases and write `results/fdm_pilot/` and
+`results/fdm_refined/`. They explicitly retain their earlier positive-rho
+put-call-parity convention. They are separate from the final direct comparison;
+see [the historical pilot documentation](docs/fdm.md).
 
 ## Training
 

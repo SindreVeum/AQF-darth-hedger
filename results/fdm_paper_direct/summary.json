@@ -1,0 +1,178 @@
+{
+  "tables": {
+    "points": 11,
+    "accepted": 11,
+    "reference": "Tables 6/7: printed IV and price columns, rounded to 0.01 percent.",
+    "paper_price_reference": "Printed Table 7 prices, independently rounded.",
+    "max_grid_changes_bp": {
+      "space": 0.3874531832692707,
+      "time": 0.005142961146675784,
+      "x_domain": 0.00021935947364104535,
+      "y_domain": 4.971023592759138e-10
+    },
+    "fine_seconds": 129.07276449981146,
+    "total_fdm_seconds": 313.27371729980223,
+    "all_estimates": {
+      "ln_vs_fdm_iv": {
+        "points": 11,
+        "mae_bp": 3.1318102094841676,
+        "rmse_bp": 4.0736988065735735,
+        "max_abs_bp": 7.1173165701329815,
+        "max_strike": 1.5088
+      },
+      "ln_vs_fdm_price": {
+        "points": 11,
+        "mae_bp": 0.3767281728857249,
+        "rmse_bp": 0.6016966395844134,
+        "max_abs_bp": 1.549125386400632,
+        "max_strike": 0.952
+      },
+      "fdm_vs_paper_iv": {
+        "points": 11,
+        "mae_bp": 5.217584518147822,
+        "rmse_bp": 5.7056184137356345,
+        "max_abs_bp": 8.01552914635073,
+        "max_strike": 1.2941
+      },
+      "fdm_vs_paper_price": {
+        "points": 11,
+        "mae_bp": 0.5188633789069199,
+        "rmse_bp": 0.6109718321648611,
+        "max_abs_bp": 1.1512970570280376,
+        "max_strike": 0.8166
+      },
+      "ln_vs_paper_ln_iv": {
+        "points": 11,
+        "mae_bp": 0.14595191223681914,
+        "rmse_bp": 0.21487690584620522,
+        "max_abs_bp": 0.5121133923718935,
+        "max_strike": 0.8166
+      }
+    },
+    "accepted_only": {
+      "ln_vs_fdm_iv": {
+        "points": 11,
+        "mae_bp": 3.1318102094841676,
+        "rmse_bp": 4.0736988065735735,
+        "max_abs_bp": 7.1173165701329815,
+        "max_strike": 1.5088
+      },
+      "ln_vs_fdm_price": {
+        "points": 11,
+        "mae_bp": 0.3767281728857249,
+        "rmse_bp": 0.6016966395844134,
+        "max_abs_bp": 1.549125386400632,
+        "max_strike": 0.952
+      },
+      "fdm_vs_paper_iv": {
+        "points": 11,
+        "mae_bp": 5.217584518147822,
+        "rmse_bp": 5.7056184137356345,
+        "max_abs_bp": 8.01552914635073,
+        "max_strike": 1.2941
+      },
+      "fdm_vs_paper_price": {
+        "points": 11,
+        "mae_bp": 0.5188633789069199,
+        "rmse_bp": 0.6109718321648611,
+        "max_abs_bp": 1.1512970570280376,
+        "max_strike": 0.8166
+      },
+      "ln_vs_paper_ln_iv": {
+        "points": 11,
+        "mae_bp": 0.14595191223681914,
+        "rmse_bp": 0.21487690584620522,
+        "max_abs_bp": 0.5121133923718935,
+        "max_strike": 0.8166
+      }
+    }
+  },
+  "figure7": {
+    "points": 50,
+    "accepted": 50,
+    "reference": "Figure 7: 50 PDF polyline vertices. Strike and IV coordinates are digitized; the paper does not specify whether plotted vertices involve interpolation.",
+    "paper_price_reference": "Black OTM prices inferred from digitized Figure 7 IVs; not published prices.",
+    "max_grid_changes_bp": {
+      "space": 0.4739723401020468,
+      "time": 0.009687135467117969,
+      "x_domain": 0.0002068337667804343,
+      "y_domain": 2.4980018054066022e-11
+    },
+    "fine_seconds": 370.8482798000332,
+    "total_fdm_seconds": 902.0039256997406,
+    "all_estimates": {
+      "ln_vs_fdm_iv": {
+        "points": 50,
+        "mae_bp": 2.418072714009223,
+        "rmse_bp": 2.8373964465547594,
+        "max_abs_bp": 5.033199979787573,
+        "max_strike": 1.9379358762931915
+      },
+      "ln_vs_fdm_price": {
+        "points": 50,
+        "mae_bp": 0.29161006032003667,
+        "rmse_bp": 0.4743806533592735,
+        "max_abs_bp": 1.42844417748908,
+        "max_strike": 1.0724231937558344
+      },
+      "fdm_vs_paper_iv": {
+        "points": 50,
+        "mae_bp": 5.581524424639406,
+        "rmse_bp": 8.000628253324201,
+        "max_abs_bp": 31.7924084220933,
+        "max_strike": 0.11073585122748644
+      },
+      "fdm_vs_paper_iv_implied_price": {
+        "points": 50,
+        "mae_bp": 1.1137192003418865,
+        "rmse_bp": 2.1736909129664537,
+        "max_abs_bp": 8.074370969497341,
+        "max_strike": 1.264747812228873
+      },
+      "ln_vs_paper_ln_iv": {
+        "points": 50,
+        "mae_bp": 0.057420157042065156,
+        "rmse_bp": 0.0729953823011376,
+        "max_abs_bp": 0.14439527417975384,
+        "max_strike": 4.726779321829448
+      }
+    },
+    "accepted_only": {
+      "ln_vs_fdm_iv": {
+        "points": 50,
+        "mae_bp": 2.418072714009223,
+        "rmse_bp": 2.8373964465547594,
+        "max_abs_bp": 5.033199979787573,
+        "max_strike": 1.9379358762931915
+      },
+      "ln_vs_fdm_price": {
+        "points": 50,
+        "mae_bp": 0.29161006032003667,
+        "rmse_bp": 0.4743806533592735,
+        "max_abs_bp": 1.42844417748908,
+        "max_strike": 1.0724231937558344
+      },
+      "fdm_vs_paper_iv": {
+        "points": 50,
+        "mae_bp": 5.581524424639406,
+        "rmse_bp": 8.000628253324201,
+        "max_abs_bp": 31.7924084220933,
+        "max_strike": 0.11073585122748644
+      },
+      "fdm_vs_paper_iv_implied_price": {
+        "points": 50,
+        "mae_bp": 1.1137192003418865,
+        "rmse_bp": 2.1736909129664537,
+        "max_abs_bp": 8.074370969497341,
+        "max_strike": 1.264747812228873
+      },
+      "ln_vs_paper_ln_iv": {
+        "points": 50,
+        "mae_bp": 0.057420157042065156,
+        "rmse_bp": 0.0729953823011376,
+        "max_abs_bp": 0.14439527417975384,
+        "max_strike": 4.726779321829448
+      }
+    }
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "captured_solver_prices_bitwise_identical": true,
+  "contracted_grid_max_node_difference": {
+    "x": 1.3322676295501878e-15,
+    "y": 6.661338147750939e-16
+  },
+  "solver_and_baseline_hashes_match": true,
+  "all_variants_finite": true,
+  "regression_tests": {
+    "command": "python -X utf8 -m pytest -q",
+    "passed": 38,
+    "seconds": 19.81
+  },
+  "two_pde_richardson_diagnostic": {
+    "assumption": "Both leading spatial errors quadratic; diagnostic only, no replacement labels",
+    "first_cs_minus_cn_iv_bp": -0.007567277555686758,
+    "max_abs_cs_minus_cn_iv_bp": 0.03432644880785318
+  },
+  "diagnostic_modules_parse": true,
+  "qmc_pooled_means_recomputed_from_both_batches": true,
+  "qmc_iv_round_trip_matches": true,
+  "final_solver_and_baseline_hashes_match": true,
+  "fixed_grid_saved_comparisons_verified": true
+}

@@ -1,0 +1,9 @@
+case,comparison,unit,reference,points,mae_bp,rmse_bp,max_abs_bp,max_strike
+tables,ln_vs_fdm_iv,IV bp,Our LN and our direct FDM.,11,3.1318102094841676,4.0736988065735735,7.1173165701329815,1.5088
+tables,ln_vs_fdm_price,price bp,Our LN and our direct FDM.,11,0.3767281728857249,0.6016966395844134,1.549125386400632,0.952
+tables,fdm_vs_paper_iv,IV bp,"Tables 6/7: printed IV and price columns, rounded to 0.01 percent.",11,5.217584518147822,5.7056184137356345,8.01552914635073,1.2941
+tables,fdm_vs_paper_price,price bp,"Printed Table 7 prices, independently rounded.",11,0.5188633789069199,0.6109718321648611,1.1512970570280376,0.8166
+figure7,ln_vs_fdm_iv,IV bp,Our LN and our direct FDM.,50,2.418072714009223,2.8373964465547594,5.033199979787573,1.9379358762931915
+figure7,ln_vs_fdm_price,price bp,Our LN and our direct FDM.,50,0.29161006032003667,0.4743806533592735,1.42844417748908,1.0724231937558344
+figure7,fdm_vs_paper_iv,IV bp,Figure 7: 50 PDF polyline vertices. Strike and IV coordinates are digitized; the paper does not specify whether plotted vertices involve interpolation.,50,5.581524424639406,8.000628253324201,31.7924084220933,0.11073585122748644
+figure7,fdm_vs_paper_iv_implied_price,price bp,Black OTM prices inferred from digitized Figure 7 IVs; not published prices.,50,1.1137192003418865,2.1736909129664537,8.074370969497341,1.264747812228873
