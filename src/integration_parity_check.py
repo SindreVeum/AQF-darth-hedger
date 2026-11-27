@@ -1,12 +1,10 @@
 """Compare the two routes to OTM calls (K >= F) for rho <= 0 in the integration scheme.
 
 Route 1: call integral directly (what src/integration.py uses for rho <= 0).
-Route 2: put integral plus put-call parity, C = P + F - K (what it uses for rho > 0).
+Route 2: put integral + put-call parity, C = P + F - K (what src/integration.py uses for rho > 0).
 
-Case A of the report (Table 6 of McGhee 2020). Run from the repository root:
-    python -m src.check_call_vs_parity_rho_neg
-Writes results/call_vs_parity_rho_neg.json. Also reports E[F_c] under the approximating
-law, which put-call parity assumes equals F.
+Case A of the report (Table 6 of McGhee 2020). 
+Also reports E[F_c] under the approximating law, which put-call parity assumes equals F.
 """
 import json
 
