@@ -1,6 +1,5 @@
 """Case C of the report: the positive-correlation smile on McGhee (2011) slide 25.
 
-Run python -m src.fdm_case_c (about five minutes).
 Parameters: F=1, T=1, alpha=12%, nu=85%, rho=45%, beta=1, ten strikes from 0.725 to 1.55. The slide
 does not state the forward; F=1 matches the strike grid. The published column is the slide's Integration
 row, rounded to 0.01 percent; the slide's 2F PDE row is not used.
@@ -8,8 +7,7 @@ row, rounded to 0.01 percent; the slide's 2F PDE row is not used.
 Compares Hagan, our integration (put-call parity for K >= F, see src/integration.py) and the direct
 call/put Craig-Sneyd FDM on the fine grid, and repeats the grid, time and domain checks of the report
 (tolerances in src/fdm_experiment.py). The medium and fine grids are those of Case B in src/fdm_paper.py,
-(640,320,400) and (1280,640,400); the default (400,200,400)/(800,400,400) pair changes the implied
-volatilities by 0.5013 IV bp, just above the 0.5 IV bp tolerance. Writes fdm_case_c.json and fdm_case_c.csv.
+(640,320,400) and (1280,640,400). Writes fdm_case_c.json and fdm_case_c.csv.
 """
 
 import argparse
