@@ -4,6 +4,7 @@ Route 1: call integral directly (what src/integration.py uses for rho <= 0).
 Route 2: put integral + put-call parity, C = P + F - K (what src/integration.py uses for rho > 0).
 
 Case A of the report (Table 6 of McGhee 2020). 
+Writes results/call_vs_parity_rho_neg.json.
 Also reports E[F_c] under the approximating law, which put-call parity assumes equals F.
 """
 import json
