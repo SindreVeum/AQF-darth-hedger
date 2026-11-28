@@ -3,6 +3,7 @@
 For beta = 1 the factor is 1 + A*T with A = rho*nu*alpha/4 + (2 - 3*rho**2)*nu**2/24.
 We report |A*T| on the final Hagan data sets (inputs: columns T, alpha, nu, rho) and for the
 parameter sets of Cases A, B and C of the report. 
+Writes results/hagan_correction_size.json.
 """
 import json
 
